@@ -1,7 +1,7 @@
 # Reference Implementation for the Dual-PRF
-# presented in ePrint/...
+# presented in [ePrint/2022/065](https://eprint.iacr.org/2022/065)
 
-This repository contains reference implementations, in C and Python, of the dual PRF presented in ePrint/...:
+This repository contains reference implementations, in C and Python, of the dual PRF presented in [ePrint/2022/065](https://eprint.iacr.org/2022/065):
 
 Practical (Post-Quantum) Key Combiners from One-Wayness and Applications to TLS,
 
