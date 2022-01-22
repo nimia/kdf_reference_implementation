@@ -35,12 +35,6 @@ class HashFunction:
         h.update(message)
         return h.digest()
 
-def one_way_injective_function(k, x, hash_function):
-    res = b''
-    for i in range(k):
-        res += hash_function.Hi(i, x)
-    return res
-
 def expand(key, hash_function):
     res = b''
     message_block_size = hash_function.hash_block_size
