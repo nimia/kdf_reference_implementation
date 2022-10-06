@@ -10,11 +10,15 @@
 
 #define EXPANSION_FACTOR 3
 
+#define SECURITY_MARGIN_FOR_LEMMA_1_BITS 256
+
 unsigned char *DERIVED_CRS = "KDF_DERIVE";
 unsigned char *INITIAL_INPUT_BLOCKS_PREFIX = "KDF";
 
 #define SHA256_DIGEST_SIZE_BYTES (EVP_MD_size(EVP_sha256()))
 #define SHA256_BLOCK_SIZE_BYTES 64
+
+#define BYTES_TO_BITS 8
 
 void derive_key(char key_index, const unsigned char *key, int key_len,
   const unsigned char *salt, int salt_len, unsigned char *output,
@@ -103,6 +107,11 @@ void combine_keys(const unsigned char *k1, int k1_len, const unsigned char *k2,
   int k2_len, const unsigned char *salt, int salt_len, unsigned char *output)
 {
   assert(initialized_initial_input_blocks);
+  int k1_len_bits = k1_len * BYTES_TO_BITS;
+  int k2_len_bits = k2_len * BYTES_TO_BITS;
+  int sha256_digest_size_bits = SHA256_DIGEST_SIZE_BYTES * BYTES_TO_BITS;
+  assert(sha256_digest_size_bits * EXPANSION_FACTOR >= SECURITY_MARGIN_FOR_LEMMA_1_BITS + k1_len_bits + k2_len_bits);
+
   unsigned char k1_derived[SHA256_DIGEST_SIZE_BYTES];
   unsigned char k2_derived[SHA256_DIGEST_SIZE_BYTES];
   unsigned int md_len;
